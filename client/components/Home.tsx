@@ -2,6 +2,12 @@ import { useState } from 'react'
 import { getGreeting } from '../apiClient.ts'
 import { useQuery } from '@tanstack/react-query'
 
+interface DonutTopping {
+id: number;
+name: string;
+description: string;
+}
+
 const Home = () => {
   const [count, setCount] = useState(0)
 
