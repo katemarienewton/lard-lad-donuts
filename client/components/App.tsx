@@ -1,10 +1,10 @@
-import { Outlet } from 'react-router'
+import Home from './Home.tsx'
 
 function App() {
   return (
-    <div>
-      <h1>App Header</h1>
-      <Outlet />
+    <div style={{ textAlign: 'center', marginTop: '6rem' }}>
+      <h1 style={{ fontSize: '3rem', fontWeight: 'bold' }}>Lard Lad Donut Generator 🍩 🩷</h1>
+      <Home />
     </div>
   )
 }
