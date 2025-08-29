@@ -1,21 +1,23 @@
-import router from "./router";
-// const API_URL = "http://localhost:5000/api/v1";
-
-export async function getGreeting(): Promise<string> {
-  const res = await fetch(`${router}/greeting`);
+export async function getGreeting() {
+  const res = await fetch("/api/v1/greeting");
   if (!res.ok) throw new Error("Failed to fetch greeting");
-  const data = await res.json();
-  return data.greeting; // 👈 matches server response { greeting: "..." }
+  return res.json();
 }
 
 export async function getFrostings() {
-  const res = await fetch(`${router}/donuts`);
-  if (!res.ok) throw new Error("Failed to fetch Frosting");
+  const res = await fetch("/api/v1/frostings");
+  if (!res.ok) throw new Error("Failed to fetch frostings");
   return res.json();
 }
 
 export async function getToppings() {
-  const res = await fetch(`${router}/donuts`);
-  if (!res.ok) throw new Error("Failed to fetch Toppings");
+  const res = await fetch("/api/v1/toppings");
+  if (!res.ok) throw new Error("Failed to fetch toppings");
+  return res.json();
+}
+
+export async function getDonuts() {
+  const res = await fetch("/api/v1/donuts");
+  if (!res.ok) throw new Error("Failed to fetch donuts");
   return res.json();
 }
