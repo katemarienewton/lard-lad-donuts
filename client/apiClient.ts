@@ -1,18 +1,14 @@
-import request from 'superagent'
+const API_URL = "http://localhost:5000/api/v1";
 
-const rootURL = new URL(`/api/v1`, document.baseURI)
-
-export async function getGreeting() {
-  const res = await request.get(`${rootURL}/greeting`)
-  return res.body.greeting as string
+export async function getGreeting(): Promise<string> {
+  const res = await fetch(`${API_URL}/greeting`);
+  if (!res.ok) throw new Error("Failed to fetch greeting");
+  const data = await res.json();
+  return data.greeting; // 👈 matches server response { greeting: "..." }
 }
 
-export async function getFrostings() {
-  const res = await request.get(`${rootURL}/donuts`)
-  return res.body.frostings as Array<string>
-}
-
-export async function getToppings() {
-  const res = await request.get(`${rootURL}/donuts`)
-  return res.body.toppings as Array<string>
+export async function getDonuts() {
+  const res = await fetch(`${API_URL}/donuts`);
+  if (!res.ok) throw new Error("Failed to fetch donuts");
+  return res.json();
 }
