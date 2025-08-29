@@ -38,7 +38,7 @@ const Home = () => {
   return (
     <div
       className="min-h-screen bg-cover bg-center flex items-center justify-center"
-      style={{ backgroundImage: "url('/storage/lard-lad-store.jpg')" }}
+      style={{ backgroundImage: "url('/storage/images/lard-lad-store.jpg')" }}
     >
       <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl p-8 max-w-2xl w-full text-center">
         <h1 className="text-3xl font-bold mb-6">🍩 Welcome to Lard Lad Donuts Store</h1>
