@@ -1,23 +1,35 @@
-export async function getGreeting() {
-  const res = await fetch("/api/v1/greeting");
-  if (!res.ok) throw new Error("Failed to fetch greeting");
-  return res.json();
+
+import request from 'superagent'
+
+const rootUrl = '/api/v1'
+
+// --- Greeting ---
+export async function getGreeting(): Promise<string> {
+  const res = await request.get(`${rootUrl}/greeting`)
+  return res.body.greeting
 }
 
-export async function getFrostings() {
-  const res = await fetch("/api/v1/frostings");
-  if (!res.ok) throw new Error("Failed to fetch frostings");
-  return res.json();
+// --- Donuts ---
+export async function getDonuts(): Promise<any[]> {
+  const res = await request.get(`${rootUrl}/donuts`)
+  return res.body
 }
 
-export async function getToppings() {
-  const res = await fetch("/api/v1/toppings");
-  if (!res.ok) throw new Error("Failed to fetch toppings");
-  return res.json();
+// --- Frostings (placeholder if you add endpoint later) ---
+export async function getFrostings(): Promise<any[]> {
+  const res = await request.get(`${rootUrl}/donuts/frostings`)
+  return res.body
 }
 
-export async function getDonuts() {
-  const res = await fetch("/api/v1/donuts");
-  if (!res.ok) throw new Error("Failed to fetch donuts");
-  return res.json();
+// --- Toppings (placeholder if you add endpoint later) ---
+export async function getToppings(): Promise<any[]> {
+  const res = await request.get(`${rootUrl}/donuts/toppings`)
+  return res.body
 }
+
+/**
+ 
+ * - For images, don’t fetch via API. Just use the static route we added in server.ts:
+ *   Example: <img src="/storage/lard-lad-store.jpg" alt="Store" />
+ * - That way, Express will serve files directly from `storage/`.
+ */

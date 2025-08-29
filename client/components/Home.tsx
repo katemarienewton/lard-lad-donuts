@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getGreeting, getFrostings, getToppings } from "../apiClient";
 
-
 const Home = () => {
   const [count, setCount] = useState(0);
 
@@ -16,42 +15,40 @@ const Home = () => {
     queryFn: getGreeting,
   });
 
-  // Donut Frosting query
+  // Frostings query
   const {
-    data: Frosting: String,
-    isLoading: donutsLoading,
-    isError: donutsError,
+    data: frostings,
+    isLoading: frostingsLoading,
+    isError: frostingsError,
   } = useQuery({
-    queryKey: ["frosting"],
+    queryKey: ["frostings"],
     queryFn: getFrostings,
   });
 
-    // Donut Toppings query
+  // Toppings query
   const {
-    data: donuts,
-    isLoading: donutsLoading,
-    isError: donutsError,
+    data: toppings,
+    isLoading: toppingsLoading,
+    isError: toppingsError,
   } = useQuery({
-    queryKey: ["donuts"],
-    queryFn: getDonuts,
+    queryKey: ["toppings"],
+    queryFn: getToppings,
   });
 
   return (
     <div
       className="min-h-screen bg-cover bg-center flex items-center justify-center"
-      style={{ backgroundImage: "url('/storage/lard-lad-store.jpg')"  }}
+      style={{ backgroundImage: "url('/storage/lard-lad-store.jpg')" }}
     >
       <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl p-8 max-w-2xl w-full text-center">
         <h1 className="text-3xl font-bold mb-6">🍩 Welcome to Lard Lad Donuts Store</h1>
 
+        {/* Greeting */}
         {isPending && <p className="text-gray-600">Loading greeting...</p>}
-        {isError && (
-          <p className="text-red-600 font-semibold">
-            Error retrieving the greeting.
-          </p>
-        )}
+        {isError && <p className="text-red-600 font-semibold">Error retrieving the greeting.</p>}
         {greeting && <h2 className="text-xl font-semibold mb-4">{greeting}</h2>}
 
+        {/* Counter */}
         <div className="flex flex-col items-center gap-4 mb-8">
           <p className="text-lg">You’ve clicked {count} times</p>
           <button
@@ -62,22 +59,29 @@ const Home = () => {
           </button>
         </div>
 
-        <h2 className="text-2xl font-bold mb-4">Our Donuts</h2>
-        {donutsLoading && <p>Loading donuts...</p>}
-        {donutsError && (
-          <p className="text-red-600 font-semibold">
-            Error loading donuts 😢
-          </p>
+        {/* Frostings */}
+        <h2 className="text-2xl font-bold mb-4">Frostings</h2>
+        {frostingsLoading && <p>Loading frostings...</p>}
+        {frostingsError && <p className="text-red-600">Error loading frostings 😢</p>}
+        {frostings && (
+          <ul className="space-y-2">
+            {frostings.map((frosting: string, idx: number) => (
+              <li key={idx} className="p-2 bg-pink-100 rounded-xl shadow">
+                {frosting}
+              </li>
+            ))}
+          </ul>
         )}
-        {donuts && (
-          <ul className="space-y-4">
-            {donuts.map((donut: any) => (
-              <li
-                key={donut.id}
-                className="p-4 bg-pink-100 rounded-xl shadow text-left"
-              >
-                <h3 className="font-semibold">{donut.name}</h3>
-                <p>{donut.description}</p>
+
+        {/* Toppings */}
+        <h2 className="text-2xl font-bold mt-8 mb-4">Toppings</h2>
+        {toppingsLoading && <p>Loading toppings...</p>}
+        {toppingsError && <p className="text-red-600">Error loading toppings 😢</p>}
+        {toppings && (
+          <ul className="space-y-2">
+            {toppings.map((topping: string, idx: number) => (
+              <li key={idx} className="p-2 bg-yellow-100 rounded-xl shadow">
+                {topping}
               </li>
             ))}
           </ul>
