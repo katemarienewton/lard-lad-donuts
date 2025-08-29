@@ -3,13 +3,21 @@
         "Strawberry",
         "Chocolate",
         "Vanilla",
-        "Berry"
+        "Berry",
+        "Ketchup",
+        "Mustard",
+        "Melted Cheese",
+        "Yogurt"
     ],
 
     "toppings": [
         "Chocolate Chips",
         "Rainbow Sprinkles",
         "Sliced Almonds",
-        "Oreos"
+        "Oreos",
+        "Sliced Pickles",
+        "Fried Rice",
+        "Shredded Lettuce",
+        "2 Minute Cup Noodles"
     ]
 }
