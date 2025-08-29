@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getGreeting, getDonuts } from "../apiClient";
+import { getGreeting, getFrostings, getToppings } from "../apiClient";
 
 
 const Home = () => {
@@ -16,7 +16,17 @@ const Home = () => {
     queryFn: getGreeting,
   });
 
-  // Donut menu query
+  // Donut Frosting query
+  const {
+    data: Frosting,
+    isLoading: donutsLoading,
+    isError: donutsError,
+  } = useQuery({
+    queryKey: ["frosting"],
+    queryFn: getFrostings,
+  });
+
+    // Donut Toppings query
   const {
     data: donuts,
     isLoading: donutsLoading,
