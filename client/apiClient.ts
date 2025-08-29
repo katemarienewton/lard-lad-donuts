@@ -15,13 +15,13 @@ export async function getDonuts(): Promise<any[]> {
   return res.body
 }
 
-// --- Frostings (placeholder if you add endpoint later) ---
+// --- Frostings (placeholder at this stage) ---
 export async function getFrostings(): Promise<any[]> {
   const res = await request.get(`${rootUrl}/donuts/frostings`)
   return res.body
 }
 
-// --- Toppings (placeholder if you add endpoint later) ---
+// --- Toppings (placeholder at this stage) ---
 export async function getToppings(): Promise<any[]> {
   const res = await request.get(`${rootUrl}/donuts/toppings`)
   return res.body
@@ -29,7 +29,7 @@ export async function getToppings(): Promise<any[]> {
 
 /**
  
- * - For images, don’t fetch via API. Just use the static route we added in server.ts:
- *   Example: <img src="/storage/lard-lad-store.jpg" alt="Store" />
- * - That way, Express will serve files directly from `storage/`.
+ * - Added static images (not API) that are added in server.ts: Express will serve files directly from `storage/`
+ *   e.g .. <img src="/storage/lard-lad-store.jpg" alt="Store" />
+ * - something to consider, we don't have backend and frontend servers at the moment. 
  */
