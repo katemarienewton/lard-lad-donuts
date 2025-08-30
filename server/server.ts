@@ -12,7 +12,7 @@ server.use("/storage", express.static(Path.resolve("storage")))
 server.get('/api/v1/greeting', (req, res) => {
   const greetings = ['hola', 'hi', 'hello', 'howdy']
   const index = Math.floor(Math.random() * greetings.length)
-  console.log(index)
+  console.log('Hididdly hoo neighbouroony ' + index)
   res.json({ greeting: greetings[index] })
 })
 
