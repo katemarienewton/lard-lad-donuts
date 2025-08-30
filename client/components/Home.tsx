@@ -96,13 +96,13 @@ const handleRandomFrosting = () => {
               </p>
             )}
 
-            <ul className="space-y-2">
+            {/* <ul className="space-y-2">
               {frostings.map((frosting: string, idx: number) => (
                 <li key={idx} className="p-2 bg-pink-100 rounded-xl shadow">
                   {frosting}
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </>
         )}
         {/* Toppings */}
@@ -123,13 +123,13 @@ const handleRandomFrosting = () => {
             </p>
           )}
           
-          <ul className="space-y-2">
+          {/* <ul className="space-y-2">
             {toppings.map((topping: string, idx: number) => (
               <li key={idx} className="p-2 bg-yellow-100 rounded-xl shadow">
                 {topping}
               </li>
             ))}
-          </ul>
+          </ul> */}
         </>
         )}
       </div>
