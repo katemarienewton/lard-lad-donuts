@@ -25,6 +25,15 @@ const Home = () => {
     queryFn: getFrostings,
   });
 
+  const [randomFrosting, setRandomFrosting] = useState<string | null>(null);
+
+const handleRandomFrosting = () => {
+  if (frostings && frostings.length > 0) {
+    const idx = Math.floor(Math.random() * frostings.length);
+    setRandomFrosting(frostings[idx]);
+  }
+};
+
   // Toppings query
   const {
     data: toppings,
@@ -34,6 +43,15 @@ const Home = () => {
     queryKey: ["toppings"],
     queryFn: getToppings,
   });
+
+  const [randomTopping, setRandomTopping] = useState<string | null>(null);
+
+  const handleRandomTopping = () => {
+    if (toppings && toppings.length > 0) {
+      const idx = Math.floor(Math.random() * toppings.length);
+      setRandomTopping(toppings[idx]);
+    }
+  };
 
   return (
     <div
@@ -64,20 +82,47 @@ const Home = () => {
         {frostingsLoading && <p>Loading frostings...</p>}
         {frostingsError && <p className="text-red-600">Error loading frostings 😢</p>}
         {frostings && (
-          <ul className="space-y-2">
-            {frostings.map((frosting: string, idx: number) => (
-              <li key={idx} className="p-2 bg-pink-100 rounded-xl shadow">
-                {frosting}
-              </li>
-            ))}
-          </ul>
-        )}
+          <>
+            <button
+              onClick={handleRandomFrosting}
+              className="px-4 py-2 mb-4 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition"
+            >
+              Pick a Random Frosting
+            </button>
 
+            {randomFrosting && (
+              <p className="p-2 bg-pink-100 rounded-xl shadow mb-4">
+                {randomFrosting}
+              </p>
+            )}
+
+            <ul className="space-y-2">
+              {frostings.map((frosting: string, idx: number) => (
+                <li key={idx} className="p-2 bg-pink-100 rounded-xl shadow">
+                  {frosting}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
         {/* Toppings */}
         <h2 className="text-2xl font-bold mt-8 mb-4">Toppings</h2>
         {toppingsLoading && <p>Loading toppings...</p>}
         {toppingsError && <p className="text-red-600">Error loading toppings 😢</p>}
         {toppings && (
+          <>
+          <button onClick={handleRandomTopping}
+            className="px-4 py-2 mb-4 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition"
+            >
+            Pick a Random Frosting
+          </button>
+          
+          {randomTopping && (
+            <p className="p-2 bg-pink-100 rounded-xl shadow mb-4">
+              {randomTopping}
+            </p>
+          )}
+          
           <ul className="space-y-2">
             {toppings.map((topping: string, idx: number) => (
               <li key={idx} className="p-2 bg-yellow-100 rounded-xl shadow">
@@ -85,6 +130,7 @@ const Home = () => {
               </li>
             ))}
           </ul>
+        </>
         )}
       </div>
     </div>
