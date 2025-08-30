@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  cursor: url(https://cur.cursors-4u.net/toons/too-1/too27.ani), url(https://cur.cursors-4u.net/toons/too-1/too27.png), auto !important;
+} 
+
+@font-face {
+  font-family: 'SimpsonsFont';
+  src: url('../fonts/Simpsonfont\ DEMO.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
