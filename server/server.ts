@@ -3,12 +3,16 @@ import express from 'express'
 import donuts from './routes/donuts.ts'
 import cors, { CorsOptions } from 'cors'
 
+
 const server = express()
+
+// Serve images from storage
+server.use("/storage", express.static(Path.resolve("storage")))
 
 server.get('/api/v1/greeting', (req, res) => {
   const greetings = ['hola', 'hi', 'hello', 'howdy']
   const index = Math.floor(Math.random() * greetings.length)
-  console.log(index)
+  console.log('Hididdly hoo neighbouroony ' + index)
   res.json({ greeting: greetings[index] })
 })
 

@@ -1,18 +1,35 @@
+
 import request from 'superagent'
 
-const rootURL = new URL(`/api/v1`, document.baseURI)
+const rootUrl = '/api/v1'
 
-export async function getGreeting() {
-  const res = await request.get(`${rootURL}/greeting`)
-  return res.body.greeting as string
+// --- Greeting ---
+export async function getGreeting(): Promise<string> {
+  const res = await request.get(`${rootUrl}/greeting`)
+  return res.body.greeting
 }
 
-export async function getFrostings() {
-  const res = await request.get(`${rootURL}/donuts`)
-  return res.body.frostings as Array<string>
+// --- Donuts ---
+export async function getDonuts(): Promise<any[]> {
+  const res = await request.get(`${rootUrl}/donuts`)
+  return res.body
 }
 
-export async function getToppings() {
-  const res = await request.get(`${rootURL}/donuts`)
-  return res.body.toppings as Array<string>
+// --- Frostings (placeholder at this stage) ---
+export async function getFrostings(): Promise<any[]> {
+  const res = await request.get(`${rootUrl}/donuts/frostings`)
+  return res.body
 }
+
+// --- Toppings (placeholder at this stage) ---
+export async function getToppings(): Promise<any[]> {
+  const res = await request.get(`${rootUrl}/donuts/toppings`)
+  return res.body
+}
+
+/**
+ 
+ * - Added static images (not API) that are added in server.ts: Express will serve files directly from `storage/`
+ *   e.g .. <img src="/storage/lard-lad-store.jpg" alt="Store" />
+ * - something to consider, we don't have backend and frontend servers at the moment. 
+ */
