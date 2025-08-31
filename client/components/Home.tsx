@@ -1,9 +1,13 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getFrostings, getToppings } from "../apiClient";
 
 const Home = () => {
   const [step, setStep] = useState(1);
+  const [randomFrosting, setRandomFrosting] = useState<string | null>(null);
+  const [randomTopping, setRandomTopping] = useState<string | null>(null);
+  
+  const queryClient = useQueryClient();
 
   // Frostings query
   const {
@@ -13,8 +17,6 @@ const Home = () => {
     queryFn: getFrostings,
   });
 
-  const [randomFrosting, setRandomFrosting] = useState<string | null>(null);
-
   // Toppings query
   const {
     data: toppings,
@@ -22,15 +24,56 @@ const Home = () => {
     queryKey: ["toppings"],
     queryFn: getToppings,
   });
+  
+  // mutations
+  const addFrostingMutation = useMutation ({
+    mutationFn: async (newFrosting: string) => {
+      const res = await fetch("/api/v1/frostings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ frosting: newFrosting }),
+      });
+      return res.json();
+    },
+      onSuccess: () => queryClient.invalidateQueries({ queryKey: ["frostings"] }),
+});
 
-  const [randomTopping, setRandomTopping] = useState<string | null>(null);
+  const addToppingMutation = useMutation({
+    mutationFn: async (newTopping: string) => {
+      const res = await fetch("/api/v1/toppings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topping: newTopping }),
+      });
+      return res.json();
+    },
+      onSuccess: () => queryClient.invalidateQueries({ queryKey: ["toppings"] }),
+});
 
-const resetOrder = () => {
+  const resetOrder = () => {
   setRandomFrosting(null);
   setRandomTopping(null);
   setStep(1)
-}
+};
 
+const pickRandom = (items: string[]) =>
+  items[Math.floor(Math.random() * items.length)];
+
+  // useEffect(() => {
+  //   if (frostings) setFrostingState(frostings);
+  // }, [frostings]);
+
+  // const [randomFrosting, setRandomFrosting] = useState<string | null>(null);
+
+
+  //   const [toppingState, setToppingState] = useState<string[]>([]);
+
+  // useEffect(() => {
+  //   if (toppings) setToppingState(toppings);
+  // }, [toppings]);
+
+  //   const [frostingState, setFrostingState] = useState<string[]>([]);
+  
   return (
     <div
       className="min-h-screen bg-cover bg-center flex items-center justify-center"
@@ -61,7 +104,6 @@ const resetOrder = () => {
         {step === 2 && (
           <div>
             <h2 className="text-2xl font-bold mb-4">Generate Your Donut</h2>
-
             {/* pick frosting */}
             <div className="flex flex-col items-center mb-4">
               <button
@@ -100,6 +142,32 @@ const resetOrder = () => {
                 {randomTopping}
               </p>
             )}
+            </div>
+
+            {/* add frosting */}
+            <div className="flex flex-col items-center mb-4">
+              <button
+                onClick={() => {
+                  const frosting = prompt("Enter a new frosting");
+                  if (frosting) addFrostingMutation.mutate(frosting);
+                }}
+                className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition"
+              >
+                Add New Frosting
+              </button>
+            </div>
+
+            {/* add topping */}
+            <div className="flex flex-col items-center mb-4">
+              <button
+                onClick={() => {
+                  const topping = prompt("Enter a new topping");
+                  if (topping) addToppingMutation.mutate(topping);
+                }}
+                className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition"
+              >
+                Add New Topping
+              </button>
           </div>
 
           {/*yum button*/}

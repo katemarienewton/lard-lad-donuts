@@ -5,7 +5,7 @@ const router = express.Router()
 
 // helper to load file
 async function loadDonutData() {
-  const json = await fs.readFile('storage/donut.json', 'utf8')
+  const json = await fs.readFile('donut.json', 'utf8')
   return JSON.parse(json)
 }
 
