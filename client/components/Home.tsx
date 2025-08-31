@@ -55,24 +55,6 @@ const Home = () => {
   setRandomTopping(null);
   setStep(1)
 };
-
-const pickRandom = (items: string[]) =>
-  items[Math.floor(Math.random() * items.length)];
-
-  // useEffect(() => {
-  //   if (frostings) setFrostingState(frostings);
-  // }, [frostings]);
-
-  // const [randomFrosting, setRandomFrosting] = useState<string | null>(null);
-
-
-  //   const [toppingState, setToppingState] = useState<string[]>([]);
-
-  // useEffect(() => {
-  //   if (toppings) setToppingState(toppings);
-  // }, [toppings]);
-
-  //   const [frostingState, setFrostingState] = useState<string[]>([]);
   
   return (
     <div
